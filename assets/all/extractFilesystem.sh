@@ -15,3 +15,4 @@ else
 fi
 
 echo "this is a test"
+echo "this is an updated test"
