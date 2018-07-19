@@ -16,3 +16,4 @@ fi
 
 echo "this is a test"
 echo "this is an updated test"
+echo "this is a third test"
