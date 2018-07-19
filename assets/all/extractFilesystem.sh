@@ -13,3 +13,5 @@ if [[ $? == 0 ]]; then
 else
 	touch /support/.failure_filesystem_extraction
 fi
+
+echo "this is a test"
