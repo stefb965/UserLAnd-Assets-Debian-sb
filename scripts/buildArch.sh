@@ -1,8 +1,10 @@
 #! /bin/bash
 
-export ARCH_DIR=output/${1}
-export ROOTFS_DIR=$ARCH_DIR/rootfs
+export ARCH_DIR=$(realpath output/${1})
+export ROOTFS_DIR=$(realpath $ARCH_DIR/rootfs)
 
+if [ 1 -eq 2 ]
+then
 rm -rf $ARCH_DIR
 mkdir -p $ARCH_DIR
 rm -rf $ROOTFS_DIR
@@ -52,3 +54,17 @@ cp $ROOTFS_DIR/libdisableselinux.so $ARCH_DIR/libdisableselinux.so
 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
  LC_ALL=C LANGUAGE=C LANG=C chroot $ROOTFS_DIR apt-get -y install busybox-static 
 cp $ROOTFS_DIR/bin/busybox $ARCH_DIR/busybox
+
+fi
+#build libandroid-shmem to go with this release
+mkdir $ROOTFS_DIR/android-shmem
+git clone https://github.com/CypherpunkArmory/android-shmem.git $ROOTFS_DIR/android-shmem
+cd $ROOTFS_DIR/android-shmem
+git submodule update --init libancillary
+echo "#!/bin/sh" > $ROOTFS_DIR/build_shmem.sh
+echo "cd android-shmem" >> $ROOTFS_DIR/build_shmem.sh
+echo "gcc -shared -fpic -std=gnu99 -Wall *.c -I . -I libancillary -o libandroid-shmem.so -Wl,--version-script=exports.txt -lc -lpthread" >> $ROOTFS_DIR/build_shmem.sh
+chmod +x $ROOTFS_DIR/build_shmem.sh
+DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+ LC_ALL=C LANGUAGE=C LANG=C chroot $ROOTFS_DIR /build_shmem.sh
+cp $ROOTFS_DIR/android-shmem/libandroid-shmem.so $ARCH_DIR/libandroid-shmem.so
