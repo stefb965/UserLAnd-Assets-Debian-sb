@@ -9,12 +9,13 @@ if [[ -z "${PULSE_SERVER}" ]]; then
 fi
 
 if [[ -z "${INITIAL_USERNAME}" ]]; then
-  INITIAL_USERNAME="user"
+  INITIAL_USERNAME="luongt"
 fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
-twm -v & echo $! > /tmp/xsdl.pidfile
+twm & echo $! > /tmp/xsdl.pidfile
+ps > /tmp/proc.txt 
 
 while [ ! -f /tmp/xsdl.pidfile ]
 do
