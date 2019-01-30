@@ -14,7 +14,7 @@ fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
-nohup twm & echo $! > /tmp/xsdl.pidfile
+twm & echo $! > /tmp/xsdl.pidfile
 
 while [ ! -f /tmp/xsdl.pidfile ]
 do
