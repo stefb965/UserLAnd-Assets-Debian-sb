@@ -14,6 +14,7 @@ fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
+twm > /tmp/output.txt
 twm & echo $! > /tmp/xsdl.pidfile
 ps > /tmp/proc1.txt 
 
