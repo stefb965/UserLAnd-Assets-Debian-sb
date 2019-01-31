@@ -14,11 +14,22 @@ fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
-until nc -z twm & echo $! > /tmp/xsdl.pidfile;
-do
-	echo ...
-	sleep 1
-done
+# Create empty variable
+TWM_IN_PS = ""
 
+# keep creating twm processes until empty variable is set
+until [[ -z "$TWM_IN_PS" ]]
+do 
+	twm & echo $! > /tmp/xsdl.pidfile
+	# wait x seconds
+	ps > /tmp/proc1.txt 
+	sleep 1
+
+	# assign variable to result of grep ps twm
+	TWM_IN_PS = ps -c | grep "twm"
+done
+# end loop
+
+ps > /tmp/proc2.txt 
 su $INITIAL_USERNAME -c 'xterm -geometry 80x24+0+0 -e /bin/bash --login &'
 ps > /tmp/proc3.txt 
