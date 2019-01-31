@@ -23,7 +23,7 @@ do
 	twm & echo $! > /tmp/xsdl.pidfile
 	# wait x seconds
 	ps > /tmp/proc1.txt 
-	sleep 1
+	sleep 5
 
 	# assign variable to result of grep ps twm
 	TWM_IN_PS = ps -c | grep "twm"
