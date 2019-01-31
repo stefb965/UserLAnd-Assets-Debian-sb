@@ -14,9 +14,6 @@ fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
-# Create empty variable
-TWM_IN_PS = ""
-
 # keep creating twm processes until empty variable is set
 until [[ -z $TWM_IN_PS ]]
 do 
