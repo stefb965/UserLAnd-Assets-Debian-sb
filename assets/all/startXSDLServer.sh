@@ -9,13 +9,11 @@ if [[ -z "${PULSE_SERVER}" ]]; then
 fi
 
 if [[ -z "${INITIAL_USERNAME}" ]]; then
-  INITIAL_USERNAME="luongt"
+  INITIAL_USERNAME="user"
 fi
 
-until env DISPLAY=:4721 ; do sleep 1 ; done
-
 # keep creating twm processes until empty variable is set
-until [[ -z $TWM_IN_PS ]]
+until [[ ! -z $TWM_IN_PS ]]
 do 
 	twm & echo $! > /tmp/xsdl.pidfile
 	# wait x seconds
