@@ -14,10 +14,10 @@ fi
 
 until env DISPLAY=:4721 ; do sleep 1 ; done
 
-twm > /tmp/output.txt & echo $! > /tmp/xsdl.pidfile
+twm & echo $! > /tmp/xsdl.pidfile
 ps > /tmp/proc1.txt 
 
 sleep 10
-
-su $INITIAL_USERNAME -c 'xterm -geometry 80x24+0+0 -e /bin/bash --login &' >> /tmp/output.txt
 ps > /tmp/proc2.txt 
+su $INITIAL_USERNAME -c 'xterm -geometry 80x24+0+0 -e /bin/bash --login &' >> /tmp/output.txt
+ps > /tmp/proc3.txt 
