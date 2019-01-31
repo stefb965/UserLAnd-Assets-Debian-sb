@@ -18,7 +18,7 @@ until env DISPLAY=:4721 ; do sleep 1 ; done
 TWM_IN_PS = ""
 
 # keep creating twm processes until empty variable is set
-until [[ -z "$TWM_IN_PS" ]]
+until [[ -z $TWM_IN_PS ]]
 do 
 	twm & echo $! > /tmp/xsdl.pidfile
 	# wait x seconds
